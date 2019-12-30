@@ -2,23 +2,25 @@ package com.example.demo.controller
 
 import com.example.demo.dto.MovieDTO
 import com.example.demo.mapper.MovieMapper
-import com.example.demo.model.Movie
-import com.example.demo.repository.MovieRepository
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import com.example.demo.service.IMovieService
+import org.springframework.web.bind.annotation.*
 
 @RestController
-class MovieController(var movieRepository: MovieRepository,
-                      var movieMapper: MovieMapper) {
+class MovieController(val movieMapper: MovieMapper,
+                      val movieService: IMovieService) {
     @GetMapping("/movies")
-    fun getMovies(): List<MovieDTO> {
-        return movieMapper.movieListTodtoList(movieRepository.findAll())
+    fun getMovies(@RequestParam(required = false) name: String?,
+                  @RequestParam(required = false) dName: String?): List<MovieDTO> {
+        return movieMapper.movieListTodtoList(movieService.findMovies(name, dName))
     }
 
     @PostMapping("/movies")
-    fun createMovie(@RequestBody movie: Movie): Movie {
-        return movieRepository.save(movie)
+    fun createMovie(@RequestBody movieDTO: MovieDTO): MovieDTO {
+        return movieMapper.movieToDto(movieService.saveMovie(movieMapper.dtoToMovie(movieDTO)))
+    }
+
+    @PutMapping("/movies")
+    fun updateMovie(@RequestBody movieDTO: MovieDTO) {
+        movieService.saveMovie(movieMapper.dtoToMovie(movieDTO))
     }
 }
