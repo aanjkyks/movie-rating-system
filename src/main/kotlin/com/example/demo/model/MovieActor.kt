@@ -1,12 +1,17 @@
 package com.example.demo.model
 
-import javax.persistence.EmbeddedId
-import javax.persistence.Entity
+import javax.persistence.*
 
 @Entity
 class MovieActor(
-        @EmbeddedId
-        var pk: MovieActorPK = MovieActorPK(),
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        var id: Long? = null,
+        @ManyToOne
+        var movie: Movie = Movie(),
+
+        @ManyToOne
+        var actor: Person = Person(),
         var role: String = ""
 ) {
     override fun equals(other: Any?): Boolean {
@@ -15,14 +20,18 @@ class MovieActor(
 
         other as MovieActor
 
-        if (pk != other.pk) return false
+        if (id != other.id) return false
+        if (movie != other.movie) return false
+        if (actor != other.actor) return false
         if (role != other.role) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = pk.hashCode()
+        var result = id.hashCode()
+        result = 31 * result + movie.hashCode()
+        result = 31 * result + actor.hashCode()
         result = 31 * result + role.hashCode()
         return result
     }

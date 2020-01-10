@@ -20,7 +20,6 @@ class RatingDTO(
 class PersonDTO(
         var id: Long? = null,
         var name: String = "",
-        var surname: String = "",
         var photo: Array<Byte>? = null,
         var role: String = ""
 )

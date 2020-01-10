@@ -4,9 +4,11 @@ import javax.persistence.*
 
 @Entity
 class Rating(
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long? = null,
-        @ManyToOne @JoinColumn(name = "movie_id")
+        @ManyToOne
+        @JoinColumn(name = "movie_id")
         var movie: Movie = Movie(),
         var value: Int = 0
 ) {

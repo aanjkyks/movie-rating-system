@@ -7,22 +7,22 @@ import com.example.demo.service.PersonService
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/movies")
 class MovieController(val movieMapper: MovieMapper,
                       val movieService: IMovieService,
                       val personService: PersonService) {
-    @GetMapping("/movies")
+    @GetMapping
     fun getMovies(@RequestParam(required = false) name: String?,
                   @RequestParam(required = false) dName: String?): List<MovieDTO> {
-        return movieMapper.movieListTodtoList(movieService.findMovies(name, dName))
+        return movieMapper.movieListToDtoList(movieService.findMovies(name, dName))
     }
 
-    @PostMapping("/movies")
+    @PostMapping
     fun createMovie(@RequestBody movieDTO: MovieDTO): MovieDTO {
         return movieMapper.movieToDto(movieService.saveMovie(movieMapper.dtoToMovie(movieDTO, personService.findAllPeople())))
     }
 
-    @PutMapping("/movies")
+    @PutMapping
     fun updateMovie(@RequestBody movieDTO: MovieDTO) {
         movieService.saveMovie(movieMapper.dtoToMovie(movieDTO, personService.findAllPeople()))
     }

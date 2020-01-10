@@ -1,23 +1,25 @@
 package com.example.demo.model
 
+import java.io.Serializable
 import javax.persistence.*
 
 @Entity
 class Movie(
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long? = null,
         @OneToMany(mappedBy = "movie", cascade = [CascadeType.ALL])
         var ratings: List<Rating> = emptyList(),
         var description: String? = null,
         var name: String = "",
         var poster: Array<Byte>? = null,
-        @ManyToOne(cascade = [CascadeType.PERSIST, CascadeType.DETACH])
+        @ManyToOne(cascade = [CascadeType.DETACH])
         var director: Person = Person(),
-        @OneToMany(mappedBy = "pk.movie", cascade = [CascadeType.PERSIST, CascadeType.DETACH])
+        @OneToMany(mappedBy = "movie", cascade = [CascadeType.ALL])
         var actors: List<MovieActor> = emptyList(),
         var averageRating: Double = 0.0
 
-) {
+) : Serializable{
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

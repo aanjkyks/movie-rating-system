@@ -1,5 +1,6 @@
 package com.example.demo.model
 
+import java.io.Serializable
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -7,11 +8,12 @@ import javax.persistence.Id
 
 @Entity
 class Person(
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long? = null,
         var name: String = "",
         var photo: Array<Byte>? = null
-) {
+) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

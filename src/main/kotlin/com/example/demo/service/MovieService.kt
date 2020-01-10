@@ -20,7 +20,6 @@ class MovieServiceImpl(val movieRepository: MovieRepository,
     override fun saveMovie(movie: Movie): Movie {
         movie.id?.let {
             movie.ratings = ratingRepository.findByMovie(movie)
-            movie.actors = movieActorRepository.findByMovie(movie)
         }
         return movieRepository.save(movie)
     }
