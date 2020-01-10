@@ -1,6 +1,7 @@
 package com.example.demo.service
 
 import com.example.demo.model.Movie
+import com.example.demo.repository.MovieActorRepository
 import com.example.demo.repository.MovieRepository
 import com.example.demo.repository.PersonRepository
 import com.example.demo.repository.RatingRepository
@@ -14,9 +15,13 @@ interface IMovieService {
 @Component
 class MovieServiceImpl(val movieRepository: MovieRepository,
                        val ratingRepository: RatingRepository,
-                       val personRepository: PersonRepository) : IMovieService {
+                       val personRepository: PersonRepository,
+                       val movieActorRepository: MovieActorRepository) : IMovieService {
     override fun saveMovie(movie: Movie): Movie {
-        movie.id?.let { movie.ratings = ratingRepository.findByMovie(movie) }
+        movie.id?.let {
+            movie.ratings = ratingRepository.findByMovie(movie)
+            movie.actors = movieActorRepository.findByMovie(movie)
+        }
         return movieRepository.save(movie)
     }
 
