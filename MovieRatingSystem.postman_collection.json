@@ -1,0 +1,348 @@
+{
+	"info": {
+		"_postman_id": "463560c5-a6fd-4650-81dc-77a559ed11ca",
+		"name": "MovieRatingSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{backend}}/api/movies",
+					"host": [
+						"{{backend}}"
+					],
+					"path": [
+						"api",
+						"movies"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Be",
+							"disabled": true
+						},
+						{
+							"key": "dName",
+							"value": "Director",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/api/movies",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/api/movies",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"api",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Be",
+									"disabled": true
+								},
+								{
+									"key": "dName",
+									"value": "Director",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 14 Jan 2020 13:31:31 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"avgRating\": 0,\n        \"totalRatings\": 0,\n        \"description\": \"best movie\",\n        \"name\": \"Worst 2\",\n        \"poster\": null,\n        \"director\": {\n            \"id\": 2,\n            \"name\": \"Director\",\n            \"photo\": null,\n            \"role\": \"Director\"\n        },\n        \"actors\": [\n            {\n                \"id\": 1,\n                \"name\": \"Actor\",\n                \"photo\": null,\n                \"role\": \"Main\"\n            }\n        ]\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "/api/movies",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"best movie\",\n    \"name\": \"Worst 2\",\n    \"poster\": null,\n    \"director\": {\n        \"id\": 2\n    },\n    \"actors\": [\n        {\n            \"id\": 1,\n            \"role\": \"Main\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{backend}}/api/movies",
+					"host": [
+						"{{backend}}"
+					],
+					"path": [
+						"api",
+						"movies"
+					],
+					"query": [
+						{
+							"key": "dName",
+							"value": "Director",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/api/movies",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"best movie\",\n    \"name\": \"Worst 2\",\n    \"poster\": null,\n    \"director\": {\n        \"id\": 2\n    },\n    \"actors\": [\n        {\n            \"id\": 1,\n            \"role\": \"Main\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{backend}}/api/movies",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"api",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "dName",
+									"value": "Director",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 14 Jan 2020 13:31:15 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"avgRating\": 0,\n    \"totalRatings\": 0,\n    \"description\": \"best movie\",\n    \"name\": \"Worst 2\",\n    \"poster\": null,\n    \"director\": {\n        \"id\": 2,\n        \"name\": \"Director\",\n        \"photo\": null,\n        \"role\": \"Director\"\n    },\n    \"actors\": [\n        {\n            \"id\": 1,\n            \"name\": \"Actor\",\n            \"photo\": null,\n            \"role\": \"Main\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "/api/people",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{backend}}/api/people",
+					"host": [
+						"{{backend}}"
+					],
+					"path": [
+						"api",
+						"people"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/api/people",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend}}/api/people",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"api",
+								"people"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 14 Jan 2020 13:32:25 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Actor\",\n        \"photo\": null,\n        \"role\": \"\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Director\",\n        \"photo\": null,\n        \"role\": \"\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "/api/people",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Director\",\r\n    \"photo\": null,\r\n    \"role\": \"\"\r\n}"
+				},
+				"url": {
+					"raw": "{{backend}}/api/people",
+					"host": [
+						"{{backend}}"
+					],
+					"path": [
+						"api",
+						"people"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/api/people",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Director\",\r\n    \"photo\": null,\r\n    \"role\": \"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{backend}}/api/people",
+							"host": [
+								"{{backend}}"
+							],
+							"path": [
+								"api",
+								"people"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 14 Jan 2020 13:30:53 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 2,\n    \"name\": \"Director\",\n    \"photo\": null,\n    \"role\": \"\"\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"id": "4734612f-042e-41db-a473-38e32d9dbaa2",
+			"key": "backend",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

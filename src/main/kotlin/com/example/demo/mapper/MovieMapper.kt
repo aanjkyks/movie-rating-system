@@ -8,6 +8,8 @@ import com.example.demo.model.MovieActor
 import com.example.demo.model.Person
 import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Component
+import java.util.*
+import kotlin.collections.ArrayList
 
 @Component
 class MovieMapper {
@@ -16,6 +18,7 @@ class MovieMapper {
     fun movieToDto(movie: Movie): MovieDTO {
         val movieDTO = MovieDTO()
         modelMapper.map(movie, movieDTO)
+        movie.poster?.let { movieDTO.poster = Base64.getEncoder().encodeToString(it) }
         val size = movie.ratings.size.toDouble()
         movieDTO.avgRating = movie.ratings
                 .map { it.value }
@@ -26,7 +29,7 @@ class MovieMapper {
         movieDTO.actors = movie.actors.map(fun(it: MovieActor): PersonDTO {
             val personDto = PersonDTO()
             personDto.name = it.actor.name
-            personDto.photo = it.actor.photo
+            personDto.photo = it.actor.photo?.let { it1 -> String(it1) }
             personDto.id = it.actor.id
             personDto.role = it.role
             return personDto
@@ -41,6 +44,7 @@ class MovieMapper {
     fun dtoToMovie(movieDTO: MovieDTO, personList: List<Person>): Movie {
         val movie = Movie()
         modelMapper.map(movieDTO, movie)
+        movieDTO.poster?.let { movie.poster = Base64.getDecoder().decode(it.toByteArray()) }
         movie.director = personList.findLast { person -> person.id == movie.director.id }
                 ?: throw EntityNotFoundException("No such person with id " + movie.director.id, null)
         val movieActors = ArrayList<MovieActor>()

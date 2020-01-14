@@ -1,5 +1,8 @@
 package com.example.demo.utils
 
+import org.springframework.stereotype.Component
+
+@Component
 class CollectionArithmetic<T> {
 
     fun difference(a: Collection<T>, b: Collection<T>): Collection<T> {

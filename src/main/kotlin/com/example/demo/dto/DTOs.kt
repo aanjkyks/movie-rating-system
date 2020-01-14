@@ -6,7 +6,7 @@ class MovieDTO(
         var totalRatings: Int = 0,
         var description: String? = null,
         var name: String = "",
-        var poster: Array<Byte>? = null,
+        var poster: String? = null,
         var director: PersonDTO = PersonDTO(),
         var actors: List<PersonDTO> = emptyList()
 )
@@ -20,6 +20,17 @@ class RatingDTO(
 class PersonDTO(
         var id: Long? = null,
         var name: String = "",
-        var photo: Array<Byte>? = null,
+        var photo: String? = null,
         var role: String = ""
+)
+
+class ActorInfoDTO(
+        var id : Long? = null,
+        var name : String = "",
+        var movies : List<MovieActorDto> = emptyList()
+)
+
+class MovieActorDto(
+        var movie: Long? = null,
+        var role : String = ""
 )

@@ -12,7 +12,8 @@ class Movie(
         var ratings: List<Rating> = emptyList(),
         var description: String? = null,
         var name: String = "",
-        var poster: Array<Byte>? = null,
+        @Column(columnDefinition = "BLOB")
+        var poster: ByteArray? = null,
         @ManyToOne(cascade = [CascadeType.DETACH])
         var director: Person = Person(),
         @OneToMany(mappedBy = "movie", cascade = [CascadeType.ALL])
