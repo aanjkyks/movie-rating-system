@@ -46,12 +46,12 @@ class MovieMapper {
         modelMapper.map(movieDTO, movie)
         movieDTO.poster?.let { movie.poster = Base64.getDecoder().decode(it.toByteArray()) }
         movie.director = personList.findLast { person -> person.id == movie.director.id }
-                ?: throw EntityNotFoundException("No such person with id " + movie.director.id, null)
+                ?: throw EntityNotFoundException("No such person with id " + movie.director.id)
         val movieActors = ArrayList<MovieActor>()
         for (actor in movieDTO.actors) {
             val movieActor = MovieActor()
             movieActor.actor = personList.findLast { person -> person.id == actor.id }
-                    ?: throw EntityNotFoundException("No such person with id " + actor.id, null)
+                    ?: throw EntityNotFoundException("No such person with id " + actor.id)
             movieActor.movie = movie
             movieActor.role = actor.role
             movieActors.add(movieActor)

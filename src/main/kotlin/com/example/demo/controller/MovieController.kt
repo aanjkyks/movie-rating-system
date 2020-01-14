@@ -1,6 +1,7 @@
 package com.example.demo.controller
 
 import com.example.demo.dto.MovieDTO
+import com.example.demo.exceptions.InvalidArgumentException
 import com.example.demo.mapper.MovieMapper
 import com.example.demo.service.IMovieService
 import com.example.demo.service.PersonService
@@ -19,11 +20,17 @@ class MovieController(val movieMapper: MovieMapper,
 
     @PostMapping
     fun createMovie(@RequestBody movieDTO: MovieDTO): MovieDTO {
+        movieDTO.id?.let {
+            throw InvalidArgumentException("Id present for movie to create")
+        }
         return movieMapper.movieToDto(movieService.saveMovie(movieMapper.dtoToMovie(movieDTO, personService.findAllPeople())))
     }
 
     @PutMapping
-    fun updateMovie(@RequestBody movieDTO: MovieDTO) {
-        movieService.saveMovie(movieMapper.dtoToMovie(movieDTO, personService.findAllPeople()))
+    fun updateMovie(@RequestBody movieDTO: MovieDTO): MovieDTO {
+        movieDTO.id?.let {
+            return movieMapper.movieToDto(movieService.saveMovie(movieMapper.dtoToMovie(movieDTO, personService.findAllPeople())))
+        }
+        throw InvalidArgumentException("No id for movie to update")
     }
 }
