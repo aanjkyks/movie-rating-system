@@ -61,4 +61,12 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+tasks.create("stage") {
+    dependsOn(tasks.build)
+}
+
+tasks.jar {
+    baseName = "movie-rating-system"
+}
+
 project.tasks["sonarqube"].dependsOn("build")
