@@ -1,7 +1,7 @@
 package com.example.demo.controller
 
 import com.example.demo.dto.PersonDTO
-import com.example.demo.exceptions.InvalidArgumentException
+import com.example.demo.exceptions.MVRInvalidArgumentException
 import com.example.demo.mapper.PersonMapper
 import com.example.demo.service.PersonService
 import org.springframework.web.bind.annotation.*
@@ -18,7 +18,7 @@ class PeopleController(val peopleService: PersonService,
     @PostMapping
     fun createPerson(@RequestBody personDto: PersonDTO): PersonDTO {
         personDto.id?.let {
-            throw InvalidArgumentException("Id present for person to create")
+            throw MVRInvalidArgumentException("Id present for person to create")
         }
         return personMapper.personToDto(peopleService.savePerson(personMapper.dtoToPerson(personDto)))
     }
@@ -26,6 +26,6 @@ class PeopleController(val peopleService: PersonService,
     @PutMapping
     fun updatePerson(@RequestBody personDto: PersonDTO): PersonDTO {
         personDto.id?.let { return personMapper.personToDto(peopleService.savePerson(personMapper.dtoToPerson(personDto))) }
-        throw InvalidArgumentException("No id for person to update")
+        throw MVRInvalidArgumentException("No id for person to update")
     }
 }

@@ -9,15 +9,15 @@ import java.time.Instant
 @RestControllerAdvice
 class MVRExceptionHandler {
 
-    @ExceptionHandler(value = [(EntityNotFoundException::class)])
+    @ExceptionHandler(value = [(MVREntityNotFoundException::class)])
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    fun handleEntityNotFound(e: EntityNotFoundException): ErrorDto {
+    fun handleEntityNotFound(e: MVREntityNotFoundException): ErrorDto {
         return ErrorDto(e.localizedMessage, HttpStatus.NOT_FOUND)
     }
 
-    @ExceptionHandler(value = [(InvalidArgumentException::class)])
+    @ExceptionHandler(value = [(MVRInvalidArgumentException::class)])
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    fun handleInvalidArgument(e: InvalidArgumentException): ErrorDto {
+    fun handleInvalidArgument(e: MVRInvalidArgumentException): ErrorDto {
         return ErrorDto(e.localizedMessage, HttpStatus.BAD_REQUEST)
     }
 

@@ -1,16 +1,16 @@
 package com.example.demo.controller
 
 import com.example.demo.dto.MovieDTO
-import com.example.demo.exceptions.InvalidArgumentException
+import com.example.demo.exceptions.MVRInvalidArgumentException
 import com.example.demo.mapper.MovieMapper
-import com.example.demo.service.IMovieService
+import com.example.demo.service.MovieService
 import com.example.demo.service.PersonService
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/movies")
 class MovieController(val movieMapper: MovieMapper,
-                      val movieService: IMovieService,
+                      val movieService: MovieService,
                       val personService: PersonService) {
     @GetMapping
     fun getMovies(@RequestParam(required = false) name: String?,
@@ -21,7 +21,7 @@ class MovieController(val movieMapper: MovieMapper,
     @PostMapping
     fun createMovie(@RequestBody movieDTO: MovieDTO): MovieDTO {
         movieDTO.id?.let {
-            throw InvalidArgumentException("Id present for movie to create")
+            throw MVRInvalidArgumentException("Id present for movie to create")
         }
         return movieMapper.movieToDto(movieService.saveMovie(movieMapper.dtoToMovie(movieDTO, personService.findAllPeople())))
     }
@@ -31,6 +31,6 @@ class MovieController(val movieMapper: MovieMapper,
         movieDTO.id?.let {
             return movieMapper.movieToDto(movieService.saveMovie(movieMapper.dtoToMovie(movieDTO, personService.findAllPeople())))
         }
-        throw InvalidArgumentException("No id for movie to update")
+        throw MVRInvalidArgumentException("No id for movie to update")
     }
 }

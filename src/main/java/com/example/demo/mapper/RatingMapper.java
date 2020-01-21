@@ -1,7 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.dto.RatingDTO;
-import com.example.demo.exceptions.EntityNotFoundException;
+import com.example.demo.exceptions.MVREntityNotFoundException;
 import com.example.demo.model.Movie;
 import com.example.demo.model.Rating;
 import org.jetbrains.annotations.NotNull;
@@ -13,5 +13,5 @@ public interface RatingMapper {
     RatingDTO ratingToDto(@NotNull Rating rating);
 
     @NotNull
-    Rating dtoToRating(@NotNull RatingDTO ratingDTO, List<Movie> movies) throws EntityNotFoundException;
+    Rating dtoToRating(@NotNull RatingDTO ratingDTO, List<Movie> movies) throws MVREntityNotFoundException;
 }
