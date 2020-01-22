@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.spring") version "1.3.61"
     kotlin("plugin.jpa") version "1.3.61"
     id("org.sonarqube") version "2.8"
+    id("jacoco")
 }
 
 group = "com.example"
@@ -52,6 +53,7 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    finalizedBy(tasks.sonarqube)
 }
 
 tasks.withType<KotlinCompile> {
@@ -69,4 +71,22 @@ tasks.jar {
     baseName = "movie-rating-system"
 }
 
-project.tasks["sonarqube"].dependsOn("build")
+sonarqube {
+    properties {
+        property("sonar.projectKey", "aanjkyks_movie-rating-system")
+        property("sonar.organization", "aanjkyks-github")
+        property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.login", "d26fb9c8d9c1aa4601b4cbccb8fcd39d4ced28ac")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
+    }
+}
+
+tasks.sonarqube {
+    dependsOn(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = true
+    }
+}
