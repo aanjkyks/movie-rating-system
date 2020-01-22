@@ -53,7 +53,6 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-    finalizedBy(tasks.sonarqube)
 }
 
 tasks.withType<KotlinCompile> {
