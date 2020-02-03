@@ -1,7 +1,6 @@
 package com.herokuapp.movieratingsystem.mapper;
 
 import com.herokuapp.movieratingsystem.dto.RatingDTO;
-import com.herokuapp.movieratingsystem.exceptions.MVREntityNotFoundException;
 import com.herokuapp.movieratingsystem.exceptions.MVRInternalErrorException;
 import com.herokuapp.movieratingsystem.model.Movie;
 import com.herokuapp.movieratingsystem.model.Rating;
@@ -9,8 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -29,13 +26,10 @@ public class RatingMapperJava implements RatingMapper {
 
     @Override
     @NotNull
-    public Rating dtoToRating(@NotNull RatingDTO ratingDTO, List<Movie> movies) throws MVREntityNotFoundException {
+    public Rating dtoToRating(@NotNull RatingDTO ratingDTO, Movie movie) {
         Rating rating = new Rating();
-        modelMapper.map(ratingDTO, rating);
-        rating.setMovie(movies.stream()
-                .filter(movie -> Objects.equals(movie.getId(), ratingDTO.getMovieId()))
-                .findFirst()
-                .orElseThrow(() -> new MVREntityNotFoundException("No such movie with id " + ratingDTO.getMovieId())));
+        rating.setValue(ratingDTO.getValue());
+        rating.setMovie(movie);
         return rating;
     }
 }

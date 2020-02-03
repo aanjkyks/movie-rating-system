@@ -19,6 +19,6 @@ class RatingsController(val ratingService: RatingService,
     @PostMapping
     @Throws(EntityNotFoundException::class)
     fun createRating(@RequestBody ratingDTO: RatingDTO): RatingDTO {
-        return ratingMapper.ratingToDto(ratingService.saveRating(ratingMapper.dtoToRating(ratingDTO, movieService.findAllMovies())))
+        return ratingMapper.ratingToDto(ratingService.saveRating(ratingMapper.dtoToRating(ratingDTO, movieService.findById(ratingDTO.movieId))))
     }
 }

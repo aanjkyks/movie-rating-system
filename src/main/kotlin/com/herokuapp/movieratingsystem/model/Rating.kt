@@ -19,7 +19,7 @@ class Rating(
         other as Rating
 
         if (id != other.id) return false
-        if (movie != other.movie) return false
+        if (movie.id != other.movie.id) return false
         if (value != other.value) return false
 
         return true
@@ -30,5 +30,9 @@ class Rating(
         result = 31 * result + movie.hashCode()
         result = 31 * result + value
         return result
+    }
+
+    override fun toString(): String {
+        return "Rating(id=$id, movie.id=${movie.id}, value=$value)"
     }
 }

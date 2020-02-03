@@ -53,4 +53,8 @@ class Movie(
         result = 31 * result + averageRating.hashCode()
         return result
     }
+
+    override fun toString(): String {
+        return "Movie(id=$id, ratings=$ratings, description=$description, name='$name', poster=${poster?.contentToString()}, director=$director, actors=$actors, averageRating=$averageRating)"
+    }
 }
