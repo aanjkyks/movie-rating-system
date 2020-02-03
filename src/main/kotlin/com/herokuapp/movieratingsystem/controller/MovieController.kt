@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/movies")
-class MovieController(val movieMapper: MovieMapper,
-                      val movieService: MovieService,
-                      val personService: PersonService) {
+class MovieController(private val movieMapper: MovieMapper,
+                      private val movieService: MovieService,
+                      private val personService: PersonService) {
     @GetMapping
     fun getMovies(@RequestParam(required = false) name: String?,
                   @RequestParam(required = false) dName: String?): List<SingleMovieDTO> {

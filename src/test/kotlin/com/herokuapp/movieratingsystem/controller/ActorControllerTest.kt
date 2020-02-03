@@ -1,6 +1,9 @@
 package com.herokuapp.movieratingsystem.controller
 
+import com.herokuapp.movieratingsystem.dto.MoviePersonDto
+import com.herokuapp.movieratingsystem.dto.MoviePersonInfo
 import com.herokuapp.movieratingsystem.mapper.ActorInfoMapper
+import com.herokuapp.movieratingsystem.model.Person
 import com.herokuapp.movieratingsystem.repository.MovieActorRepository
 import com.herokuapp.movieratingsystem.service.MovieService
 import com.herokuapp.movieratingsystem.service.PersonService
@@ -8,6 +11,7 @@ import com.herokuapp.movieratingsystem.utils.MovieTestingUtils
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -25,11 +29,12 @@ internal class ActorControllerTest {
 
     @Test
     fun getActorInfo() {
-
+        assertNotNull(actorController.getActorInfo(1L))
     }
 
     @BeforeEach
     internal fun setUp() {
-        whenever(movieService.findByDirector(any())).thenReturn(listOf(MovieTestingUtils.createMovie()))
+        whenever(actorInfoMapper.actorListToInfoList(any(), any(), any())).thenReturn(MoviePersonInfo())
+        whenever(personService.findPersonById(1L)).thenReturn(Person())
     }
 }
