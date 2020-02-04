@@ -1,6 +1,6 @@
 package com.herokuapp.movieratingsystem.controller
 
-import com.herokuapp.movieratingsystem.dto.SingleMovieDTO
+import com.herokuapp.movieratingsystem.dto.MovieDto
 import com.herokuapp.movieratingsystem.exceptions.MVRInvalidArgumentException
 import com.herokuapp.movieratingsystem.mapper.MovieMapper
 import com.herokuapp.movieratingsystem.service.MovieService
@@ -23,7 +23,7 @@ internal class MovieControllerTest {
 
     @Test
     fun getMovies() {
-        whenever(movieMapper.singleMovieToDto(any())).thenReturn(SingleMovieDTO())
+        whenever(movieMapper.singleMovieToDto(any())).thenReturn(MovieDto())
         val dName = "director name"
         val name = "name"
         movieController.getMovies(name, dName)
@@ -32,7 +32,7 @@ internal class MovieControllerTest {
 
     @Test
     fun getMovie() {
-        whenever(movieMapper.singleMovieToDto(any())).thenReturn(SingleMovieDTO())
+        whenever(movieMapper.singleMovieToDto(any())).thenReturn(MovieDto())
         movieController.getMovie(1)
         verify(movieService).findById(1)
     }
@@ -41,7 +41,7 @@ internal class MovieControllerTest {
     fun createMovie() {
         val movie = MovieTestingUtils.createMovie()
         whenever(movieMapper.dtoToMovie(any(), any())).thenReturn(movie)
-        movieController.createMovie(SingleMovieDTO())
+        movieController.createMovie(MovieDto())
         verify(movieService).saveMovie(any())
     }
 
@@ -49,7 +49,7 @@ internal class MovieControllerTest {
     fun createMovieWithId() {
         val movie = MovieTestingUtils.createMovie()
         whenever(movieMapper.dtoToMovie(any(), any())).thenReturn(movie)
-        val singleMovieDTO = SingleMovieDTO()
+        val singleMovieDTO = MovieDto()
         singleMovieDTO.id = 2
         assertThrows<MVRInvalidArgumentException> { movieController.createMovie(singleMovieDTO) }
         verify(movieService, never()).saveMovie(any())
@@ -59,7 +59,7 @@ internal class MovieControllerTest {
     fun updateMovieNoId() {
         val movie = MovieTestingUtils.createMovie()
         whenever(movieMapper.dtoToMovie(any(), any())).thenReturn(movie)
-        assertThrows<MVRInvalidArgumentException> { movieController.updateMovie(SingleMovieDTO()) }
+        assertThrows<MVRInvalidArgumentException> { movieController.updateMovie(MovieDto()) }
         verify(movieService, never()).saveMovie(any())
     }
 
@@ -67,7 +67,7 @@ internal class MovieControllerTest {
     fun updateMovie() {
         val movie = MovieTestingUtils.createMovie()
         whenever(movieMapper.dtoToMovie(any(), any())).thenReturn(movie)
-        val singleMovieDTO = SingleMovieDTO()
+        val singleMovieDTO = MovieDto()
         singleMovieDTO.id = 2
         movieController.updateMovie(singleMovieDTO)
         verify(movieService, times(1)).saveMovie(any())

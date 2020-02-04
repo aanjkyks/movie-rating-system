@@ -34,4 +34,8 @@ class Person(
         result = 31 * result + (photo?.contentHashCode() ?: 0)
         return result
     }
+
+    override fun toString(): String {
+        return "Person(id=$id, name='$name', photo=${photo?.contentToString()})"
+    }
 }

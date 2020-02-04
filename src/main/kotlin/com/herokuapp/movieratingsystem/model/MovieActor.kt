@@ -35,4 +35,8 @@ class MovieActor(
         result = 31 * result + role.hashCode()
         return result
     }
+
+    override fun toString(): String {
+        return "MovieActor(id=$id, movieId=${movie.id}, actor=$actor, role='$role')"
+    }
 }

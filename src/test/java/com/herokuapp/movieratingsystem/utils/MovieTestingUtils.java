@@ -21,6 +21,7 @@ public class MovieTestingUtils {
 
         MovieActor movieActor = new MovieActor();
         movieActor.setId(1L);
+        movieActor.setRole("Main Role");
         movieActor.setMovie(movie);
         Person actor = new Person();
         actor.setName("Actor");
