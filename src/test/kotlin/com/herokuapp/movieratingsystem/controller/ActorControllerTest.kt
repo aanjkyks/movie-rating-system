@@ -8,8 +8,8 @@ import com.herokuapp.movieratingsystem.service.MovieService
 import com.herokuapp.movieratingsystem.service.PersonService
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -27,12 +27,15 @@ internal class ActorControllerTest {
 
     @Test
     fun getActorInfo() {
-        assertNotNull(actorController.getActorInfo(1L))
+        actorController.getActorInfo(1)
+        verify(movieService).findByDirector(any())
+        verify(personService).findPersonById(1)
+        verify(movieActorRepository).findByActor(any())
     }
 
     @BeforeEach
     internal fun setUp() {
         whenever(actorInfoMapper.actorListToInfoList(any(), any(), any())).thenReturn(MoviePersonInfo())
-        whenever(personService.findPersonById(1L)).thenReturn(Person())
+        whenever(personService.findPersonById(1)).thenReturn(Person())
     }
 }

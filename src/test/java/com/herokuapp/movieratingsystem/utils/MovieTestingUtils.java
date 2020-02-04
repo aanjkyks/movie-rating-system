@@ -30,4 +30,11 @@ public class MovieTestingUtils {
         movie.setActors(List.of(movieActor));
         return movie;
     }
+
+    public static Person createPerson() {
+        Person person = new Person();
+        person.setId(1L);
+        person.setName("Person name");
+        return person;
+    }
 }
