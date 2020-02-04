@@ -1,13 +1,11 @@
 package com.herokuapp.movieratingsystem.controller
 
-import com.herokuapp.movieratingsystem.dto.MoviePersonDto
 import com.herokuapp.movieratingsystem.dto.MoviePersonInfo
 import com.herokuapp.movieratingsystem.mapper.ActorInfoMapper
 import com.herokuapp.movieratingsystem.model.Person
 import com.herokuapp.movieratingsystem.repository.MovieActorRepository
 import com.herokuapp.movieratingsystem.service.MovieService
 import com.herokuapp.movieratingsystem.service.PersonService
-import com.herokuapp.movieratingsystem.utils.MovieTestingUtils
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever

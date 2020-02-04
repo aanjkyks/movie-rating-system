@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/people")
-class PeopleController(val peopleService: PersonService,
-                       val personMapper: PersonMapper) {
+class PeopleController(private val peopleService: PersonService,
+                       private val personMapper: PersonMapper) {
     @PostMapping
     fun createPerson(@RequestBody personDto: PersonDTO): PersonDTO {
         personDto.id?.let {

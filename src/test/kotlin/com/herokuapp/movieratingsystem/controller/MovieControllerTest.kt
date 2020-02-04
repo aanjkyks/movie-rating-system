@@ -7,7 +7,6 @@ import com.herokuapp.movieratingsystem.service.MovieService
 import com.herokuapp.movieratingsystem.service.PersonService
 import com.herokuapp.movieratingsystem.utils.MovieTestingUtils
 import com.nhaarman.mockitokotlin2.*
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
@@ -47,7 +46,7 @@ internal class MovieControllerTest {
     }
 
     @Test
-    internal fun createMovieWithId() {
+    fun createMovieWithId() {
         val movie = MovieTestingUtils.createMovie()
         whenever(movieMapper.dtoToMovie(any(), any())).thenReturn(movie)
         val singleMovieDTO = SingleMovieDTO()
@@ -65,7 +64,7 @@ internal class MovieControllerTest {
     }
 
     @Test
-    internal fun updateMovie() {
+    fun updateMovie() {
         val movie = MovieTestingUtils.createMovie()
         whenever(movieMapper.dtoToMovie(any(), any())).thenReturn(movie)
         val singleMovieDTO = SingleMovieDTO()
