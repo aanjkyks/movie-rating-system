@@ -21,6 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 internal class MovieMapperTest {
 
     val movieMapper: MovieMapper = spy()
+    val mainRole = "Main Role"
 
     @Test
     fun singleMovieToDto() {
@@ -38,7 +39,7 @@ internal class MovieMapperTest {
                         name = movie.director.name,
                         role = "Director"))
 
-        val personDto = PersonDTO(name = "Actor", role = "Main Role", id = 2)
+        val personDto = PersonDTO(name = "Actor", role = mainRole, id = 2)
         expected.actors = listOf(personDto)
 
         assertEquals(expected, movieMapper.singleMovieToDto(movie))
@@ -60,19 +61,20 @@ internal class MovieMapperTest {
 
     @Test
     fun dtoToMovie() {
+        val secondaryRole = "Secondary"
         val movieDto = MovieDto(
                 director = PersonDTO(id = 1),
                 id = 1,
                 name = "Movie",
                 description = "desc",
                 actors = listOf(
-                        PersonDTO(id = 2, role = "Main Role"),
-                        PersonDTO(id = 3, role = "Secondary")))
+                        PersonDTO(id = 2, role = mainRole),
+                        PersonDTO(id = 3, role = secondaryRole)))
         val expected = Movie(
                 id = 1,
                 actors = listOf(
-                        MovieActor(actor = Person(id = 2), role = "Main Role"),
-                        MovieActor(actor = Person(id = 3), role = "Secondary")),
+                        MovieActor(actor = Person(id = 2), role = mainRole),
+                        MovieActor(actor = Person(id = 3), role = secondaryRole)),
                 description = "desc",
                 name = "Movie",
                 director = Person(id = 1))
