@@ -51,13 +51,13 @@ internal class PeopleControllerTest {
     fun findPeople() {
         whenever(peopleService.findPeopleByName(any())).thenReturn(listOf(Person()))
         peopleController.findPeople("name")
-        verify(peopleService).findPeopleByName(any())
+        verify(peopleService, times(1)).findPeopleByName(any())
     }
 
     @Test
     fun findPerson() {
         whenever(peopleService.findPersonById(any())).thenReturn(Person())
         peopleController.findPerson(1)
-        verify(peopleService).findPersonById(any())
+        verify(peopleService, times(1)).findPersonById(any())
     }
 }
