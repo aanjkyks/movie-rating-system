@@ -13,12 +13,12 @@ import javax.persistence.EntityNotFoundException
 
 @RestController
 @RequestMapping("/api/ratings")
-class RatingsController(val ratingService: RatingService,
-                        val ratingMapper: RatingMapper,
-                        val movieService: MovieService) {
+class RatingsController(private val ratingService: RatingService,
+                        private val ratingMapper: RatingMapper,
+                        private val movieService: MovieService) {
     @PostMapping
     @Throws(EntityNotFoundException::class)
     fun createRating(@RequestBody ratingDTO: RatingDTO): RatingDTO {
-        return ratingMapper.ratingToDto(ratingService.saveRating(ratingMapper.dtoToRating(ratingDTO, movieService.findAllMovies())))
+        return ratingMapper.ratingToDto(ratingService.saveRating(ratingMapper.dtoToRating(ratingDTO, movieService.findById(ratingDTO.movieId))))
     }
 }

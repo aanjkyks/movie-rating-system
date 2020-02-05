@@ -17,8 +17,7 @@ class Movie(
         @ManyToOne(cascade = [CascadeType.DETACH])
         var director: Person = Person(),
         @OneToMany(mappedBy = "movie", cascade = [CascadeType.ALL])
-        var actors: List<MovieActor> = emptyList(),
-        var averageRating: Double = 0.0
+        var actors: List<MovieActor> = emptyList()
 
 ) : Serializable{
     override fun equals(other: Any?): Boolean {
@@ -37,7 +36,6 @@ class Movie(
         } else if (other.poster != null) return false
         if (director != other.director) return false
         if (actors != other.actors) return false
-        if (averageRating != other.averageRating) return false
 
         return true
     }
@@ -50,7 +48,10 @@ class Movie(
         result = 31 * result + (poster?.contentHashCode() ?: 0)
         result = 31 * result + director.hashCode()
         result = 31 * result + actors.hashCode()
-        result = 31 * result + averageRating.hashCode()
         return result
+    }
+
+    override fun toString(): String {
+        return "Movie(id=$id, ratings=$ratings, description=$description, name='$name', poster=${poster?.contentToString()}, director=$director, actors=$actors"
     }
 }

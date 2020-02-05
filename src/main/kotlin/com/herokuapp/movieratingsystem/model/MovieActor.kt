@@ -21,7 +21,7 @@ class MovieActor(
         other as MovieActor
 
         if (id != other.id) return false
-        if (movie != other.movie) return false
+        if (movie.id != other.movie.id) return false
         if (actor != other.actor) return false
         if (role != other.role) return false
 
@@ -30,9 +30,13 @@ class MovieActor(
 
     override fun hashCode(): Int {
         var result = id.hashCode()
-        result = 31 * result + movie.hashCode()
+        result = 31 * result + movie.id.hashCode()
         result = 31 * result + actor.hashCode()
         result = 31 * result + role.hashCode()
         return result
+    }
+
+    override fun toString(): String {
+        return "MovieActor(id=$id, movieId=${movie.id}, actor=$actor, role='$role')"
     }
 }
