@@ -9,8 +9,6 @@ import com.herokuapp.movieratingsystem.repository.MovieActorRepository
 import com.herokuapp.movieratingsystem.repository.MovieRepository
 import com.herokuapp.movieratingsystem.repository.PersonRepository
 import com.herokuapp.movieratingsystem.repository.RatingRepository
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 
 @Service
@@ -31,13 +29,13 @@ class MovieServiceImpl(private val movieRepository: MovieRepository,
         }
 
         dName?.let { directorName ->
-            val movies = mutableListOf<Movie>()
+            val movies = mutableSetOf<Movie>()
             val directors = personRepository.findByName(directorName)
             for (director in directors) {
                 movies.addAll(movieRepository.findByDirector(director))
             }
             name?.let { movies.addAll(movieRepository.findByNameContaining(name).filter { directors.contains(it.director) }) }
-            return movies.distinct()
+            return movies.toList()
         }
         return movieRepository.findByNameContaining(name)
     }
@@ -56,9 +54,5 @@ class MovieServiceImpl(private val movieRepository: MovieRepository,
 
     override fun findById(id: Long): Movie {
         return movieRepository.findById(id).orElseThrow { MVREntityNotFoundException("No such movie with id $id") }
-    }
-
-    override fun findAllPaginated(page: Int, size: Int): Page<Movie> {
-        return movieRepository.findAll(PageRequest.of(page, size))
     }
 }
