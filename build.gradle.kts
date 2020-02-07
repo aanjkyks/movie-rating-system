@@ -32,7 +32,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 //	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-//	implementation("org.springframework.boot:spring-boot-starter-security")
+
+    implementation("org.springframework.boot:spring-boot-starter-security")
+// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl
+    implementation(group = "io.jsonwebtoken", name = "jjwt-impl", version = "0.11.0")
+    implementation(group = "io.jsonwebtoken", name = "jjwt-api", version = "0.11.0")
+    implementation(group = "io.jsonwebtoken", name = "jjwt-jackson", version = "0.11.0")
+
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.flywaydb:flyway-core")
