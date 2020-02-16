@@ -53,17 +53,17 @@ internal class MovieServiceImplTest {
 
     @Test
     internal fun findMoviesNullName() {
-        whenever(personRepository.findByName(any())).thenReturn(listOf(Person()))
+        whenever(personRepository.findByNameContainingIgnoreCase(any())).thenReturn(listOf(Person()))
         movieServiceImpl.findMovies(dName = "Director")
-        verify(personRepository, times(1)).findByName("Director")
+        verify(personRepository, times(1)).findByNameContainingIgnoreCase("Director")
         verify(movieRepository, times(1)).findByDirector(any())
-        verify(movieRepository, never()).findByNameContaining(any())
+        verify(movieRepository, never()).findByNameContainingIgnoreCase(any())
     }
 
     @Test
     internal fun findMoviesNullDirectorName() {
         movieServiceImpl.findMovies(name = "Movie name")
-        verify(movieRepository, times(1)).findByNameContaining(any())
+        verify(movieRepository, times(1)).findByNameContainingIgnoreCase(any())
         verify(movieRepository, never()).findAll()
     }
 

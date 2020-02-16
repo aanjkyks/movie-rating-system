@@ -17,7 +17,7 @@ class PersonServiceImpl(private val personRepository: PersonRepository) : Person
     }
 
     override fun findPeopleByName(name: String?): List<Person> {
-        name?.let { return personRepository.findByName(it) }
+        name?.let { return personRepository.findByNameContainingIgnoreCase(it) }
         return personRepository.findAll()
     }
 

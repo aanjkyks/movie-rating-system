@@ -24,20 +24,18 @@ class MovieServiceImpl(private val movieRepository: MovieRepository,
     }
 
     override fun findMovies(name: String?, dName: String?): List<Movie> {
-        if (name == null && dName == null) {
-            return movieRepository.findAll()
-        }
 
         dName?.let { directorName ->
             val movies = mutableSetOf<Movie>()
-            val directors = personRepository.findByName(directorName)
+            val directors = personRepository.findByNameContainingIgnoreCase(directorName)
             for (director in directors) {
                 movies.addAll(movieRepository.findByDirector(director))
             }
-            name?.let { movies.addAll(movieRepository.findByNameContaining(name).filter { directors.contains(it.director) }) }
+            name?.let { movies.addAll(movieRepository.findByNameContainingIgnoreCase(name).filter { directors.contains(it.director) }) }
             return movies.toList()
         }
-        return movieRepository.findByNameContaining(name)
+        name?.let { return movieRepository.findByNameContainingIgnoreCase(it) }
+        return movieRepository.findAll()
     }
 
     override fun findAllMovies(): List<Movie> {
