@@ -21,7 +21,9 @@ class SecurityConfig(private val userDetailsService: UserDetailsService) : WebSe
 
 
     override fun configure(http: HttpSecurity) {
-        http.cors()
+        http
+                .cors().and()
+                .csrf().disable()
     }
 
     @Bean
