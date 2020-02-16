@@ -30,7 +30,7 @@ internal class PersonServiceImplTest {
     @Test
     fun findPeopleByName() {
         personServiceImpl.findPeopleByName("Person")
-        verify(personRepository, times(1)).findByName("Person")
+        verify(personRepository, times(1)).findByNameContainingIgnoreCase("Person")
     }
 
     @Test
@@ -63,13 +63,13 @@ internal class PersonServiceImplTest {
         whenever(personRepository.findById(1)).thenReturn(Optional.of(Person()))
         personServiceImpl.findPeopleBy(1, null)
         verify(personRepository, times(1)).findById(1)
-        verify(personRepository, never()).findByName(any())
+        verify(personRepository, never()).findByNameContainingIgnoreCase(any())
     }
 
     @Test
     internal fun findPeopleByNullIdParam() {
         personServiceImpl.findPeopleBy(null, "Name")
         verify(personRepository, never()).findById(any())
-        verify(personRepository, times(1)).findByName("Name")
+        verify(personRepository, times(1)).findByNameContainingIgnoreCase("Name")
     }
 }
