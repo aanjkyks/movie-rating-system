@@ -10,7 +10,7 @@ class Movie(
         var id: Long? = null,
         @OneToMany(mappedBy = "movie", cascade = [CascadeType.ALL])
         var ratings: List<Rating> = emptyList(),
-        val avgRating: Double = ratings.map { it.value }.sum().div(ratings.size.toDouble()),
+        var avgRating: Double = ratings.map { it.value }.sum().div(ratings.size.toDouble()),
         var description: String? = null,
         var name: String = "",
         @Column(columnDefinition = "BLOB")

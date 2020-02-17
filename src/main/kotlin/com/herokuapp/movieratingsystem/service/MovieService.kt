@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable
 
 interface MovieService {
     fun saveMovie(movie: Movie): Movie
-    fun findMovies(name: String?, dName: String?, pageable: Pageable): Page<Movie>
+    fun findMovies(name: String? = null, dName: String? = null, pageable: Pageable = Pageable.unpaged()): Page<Movie>
     fun findAllMovies(): List<Movie>
     fun findAllMovieActors(): List<MovieActor>
     fun findByDirector(director: Person): List<Movie>

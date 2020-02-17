@@ -12,6 +12,8 @@ import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.Pageable
 import java.util.*
 
 internal class MovieServiceImplTest {
@@ -47,23 +49,24 @@ internal class MovieServiceImplTest {
 
     @Test
     fun findMoviesNullParam() {
-        movieServiceImpl.findMovies()
-        verify(movieRepository, times(1)).findAll()
+        whenever(movieRepository.findAll(any<Pageable>())).thenReturn(PageImpl(listOf(Movie())))
+        movieServiceImpl.findMovies(null, null, Pageable.unpaged())
+        verify(movieRepository, times(1)).findAll(any<Pageable>())
     }
 
     @Test
     internal fun findMoviesNullName() {
-        whenever(personRepository.findByNameContainingIgnoreCase(any())).thenReturn(listOf(Person()))
-        movieServiceImpl.findMovies(dName = "Director")
-        verify(personRepository, times(1)).findByNameContainingIgnoreCase("Director")
-        verify(movieRepository, times(1)).findByDirector(any())
-        verify(movieRepository, never()).findByNameContainingIgnoreCase(any())
+        whenever(personRepository.findByNameContainingIgnoreCase(any(), any())).thenReturn(PageImpl(listOf(Person())))
+        movieServiceImpl.findMovies(dName = "Director", pageable = Pageable.unpaged(), name = null)
+        verify(personRepository, times(1)).findByNameContainingIgnoreCase(any(), any())
+        verify(movieRepository, times(1)).findByDirectorIn(any())
+        verify(movieRepository, never()).findByNameContainingIgnoreCase(any(), any())
     }
 
     @Test
     internal fun findMoviesNullDirectorName() {
         movieServiceImpl.findMovies(name = "Movie name")
-        verify(movieRepository, times(1)).findByNameContainingIgnoreCase(any())
+        verify(movieRepository, times(1)).findByNameContainingIgnoreCase(any(), any())
         verify(movieRepository, never()).findAll()
     }
 

@@ -9,6 +9,7 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.springframework.data.domain.PageImpl
 
 internal class PersonMapperTest {
 
@@ -23,7 +24,7 @@ internal class PersonMapperTest {
 
     @Test
     fun peopleListToDtos() {
-        val people = List(10) { Person(id = it.toLong()) }
+        val people = PageImpl(List(10) { Person(id = it.toLong()) })
         personMapper.peopleListToDtos(people)
         verify(personMapper, times(people.size)).personToDto(any())
     }
