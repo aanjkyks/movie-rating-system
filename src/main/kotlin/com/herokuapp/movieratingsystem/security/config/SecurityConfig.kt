@@ -24,6 +24,7 @@ class SecurityConfig(private val userDetailsService: UserDetailsService) : WebSe
         http
                 .cors().and()
                 .csrf().disable()
+                .headers().frameOptions().disable()
     }
 
     @Bean

@@ -4,6 +4,7 @@ package com.herokuapp.movieratingsystem.mapper
 import com.herokuapp.movieratingsystem.dto.PersonDTO
 import com.herokuapp.movieratingsystem.model.Person
 import org.modelmapper.ModelMapper
+import org.springframework.data.domain.Page
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -18,7 +19,7 @@ class PersonMapper {
         return personDTO
     }
 
-    fun peopleListToDtos(people: List<Person>): List<PersonDTO> {
+    fun peopleListToDtos(people: Page<Person>): Page<PersonDTO> {
         return people.map { personToDto(it) }
     }
 
