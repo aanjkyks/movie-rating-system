@@ -6,6 +6,8 @@ import com.herokuapp.movieratingsystem.repository.PersonRepository
 import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.Pageable
 import java.util.*
 
 internal class PersonServiceImplTest {
@@ -29,14 +31,15 @@ internal class PersonServiceImplTest {
 
     @Test
     fun findPeopleByName() {
-        personServiceImpl.findPeopleByName("Person")
-        verify(personRepository, times(1)).findByNameContainingIgnoreCase("Person")
+        personServiceImpl.findPeopleByName("Person", Pageable.unpaged())
+        verify(personRepository, times(1)).findByNameContainingIgnoreCase(any(), any())
     }
 
     @Test
     internal fun findPeopleByNullName() {
-        personServiceImpl.findPeopleByName(null)
-        verify(personRepository, times(1)).findAll()
+        whenever(personRepository.findAll(any<Pageable>())).thenReturn(PageImpl(listOf(Person())))
+        personServiceImpl.findPeopleByName(null, Pageable.unpaged())
+        verify(personRepository, times(1)).findAll(any<Pageable>())
     }
 
     @Test
@@ -54,22 +57,23 @@ internal class PersonServiceImplTest {
 
     @Test
     fun findPeopleByNullParams() {
-        personServiceImpl.findPeopleBy(null, null)
+        personServiceImpl.findPeopleBy(null, null, Pageable.unpaged())
         verify(personRepository, times(1)).findAll()
     }
 
     @Test
     internal fun findPeopleByNullNameParam() {
         whenever(personRepository.findById(1)).thenReturn(Optional.of(Person()))
-        personServiceImpl.findPeopleBy(1, null)
+        personServiceImpl.findPeopleBy(1, null, Pageable.unpaged())
         verify(personRepository, times(1)).findById(1)
-        verify(personRepository, never()).findByNameContainingIgnoreCase(any())
+        verify(personRepository, never()).findByNameContainingIgnoreCase(any(), any())
     }
 
     @Test
     internal fun findPeopleByNullIdParam() {
-        personServiceImpl.findPeopleBy(null, "Name")
+        whenever(personRepository.findByNameContainingIgnoreCase(any(), any())).thenReturn(PageImpl(listOf(Person())))
+        personServiceImpl.findPeopleBy(null, "Name", Pageable.unpaged())
         verify(personRepository, never()).findById(any())
-        verify(personRepository, times(1)).findByNameContainingIgnoreCase("Name")
+        verify(personRepository, times(1)).findByNameContainingIgnoreCase(any(), any())
     }
 }

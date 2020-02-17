@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.data.domain.PageImpl
 
 @ExtendWith(MockitoExtension::class)
 internal class MovieMapperTest {
@@ -27,7 +28,7 @@ internal class MovieMapperTest {
     fun singleMovieToDto() {
         val movie = MovieTestingUtils.createMovie()
         movie.ratings = listOf(Rating(movie = movie, value = 10), Rating(movie = movie, value = 5))
-
+        movie.avgRating = 7.5
         val expected = MovieDto(
                 name = movie.name,
                 avgRating = 7.5,
@@ -47,7 +48,7 @@ internal class MovieMapperTest {
 
     @Test
     fun movieListToDtoList() {
-        val movies = listOf(Movie())
+        val movies = PageImpl(listOf(Movie()))
         movieMapper.movieListToDtoList(movies)
         verify(movieMapper, times(movies.size)).movieToBatchDto(any())
     }

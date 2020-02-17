@@ -8,6 +8,8 @@ import com.herokuapp.movieratingsystem.service.PersonService
 import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.Pageable
 
 internal class PeopleControllerTest {
 
@@ -49,9 +51,9 @@ internal class PeopleControllerTest {
 
     @Test
     fun findPeople() {
-        whenever(peopleService.findPeopleByName(any())).thenReturn(listOf(Person()))
-        peopleController.findPeople("name")
-        verify(peopleService, times(1)).findPeopleByName(any())
+        whenever(peopleService.findPeopleByName(any(), any())).thenReturn(PageImpl(listOf(Person())))
+        peopleController.findPeople("name", Pageable.unpaged())
+        verify(peopleService, times(1)).findPeopleByName(any(), any())
     }
 
     @Test

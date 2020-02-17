@@ -9,6 +9,9 @@ import com.herokuapp.movieratingsystem.repository.MovieActorRepository
 import com.herokuapp.movieratingsystem.repository.MovieRepository
 import com.herokuapp.movieratingsystem.repository.PersonRepository
 import com.herokuapp.movieratingsystem.repository.RatingRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -23,19 +26,17 @@ class MovieServiceImpl(private val movieRepository: MovieRepository,
         return movieRepository.save(movie)
     }
 
-    override fun findMovies(name: String?, dName: String?): List<Movie> {
+    override fun findMovies(name: String?, dName: String?, pageable: Pageable): Page<Movie> {
 
         dName?.let { directorName ->
             val movies = mutableSetOf<Movie>()
-            val directors = personRepository.findByNameContainingIgnoreCase(directorName)
-            for (director in directors) {
-                movies.addAll(movieRepository.findByDirector(director))
-            }
-            name?.let { movies.addAll(movieRepository.findByNameContainingIgnoreCase(name).filter { directors.contains(it.director) }) }
-            return movies.toList()
+            val directors = personRepository.findByNameContainingIgnoreCase(directorName, Pageable.unpaged())
+            movies.addAll(movieRepository.findByDirectorIn(directors.content))
+            name?.let { movies.addAll(movieRepository.findByNameContainingIgnoreCase(name, Pageable.unpaged()).filter { directors.contains(it.director) }) }
+            return PageImpl<Movie>(movies.toList(), pageable, movies.size.toLong())
         }
-        name?.let { return movieRepository.findByNameContainingIgnoreCase(it) }
-        return movieRepository.findAll()
+        name?.let { return movieRepository.findByNameContainingIgnoreCase(it, pageable) }
+        return movieRepository.findAll(pageable)
     }
 
     override fun findAllMovies(): List<Movie> {

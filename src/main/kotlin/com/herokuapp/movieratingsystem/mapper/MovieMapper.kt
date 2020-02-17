@@ -8,6 +8,7 @@ import com.herokuapp.movieratingsystem.model.Movie
 import com.herokuapp.movieratingsystem.model.MovieActor
 import com.herokuapp.movieratingsystem.model.Person
 import org.modelmapper.ModelMapper
+import org.springframework.data.domain.Page
 import org.springframework.stereotype.Component
 import java.util.*
 import kotlin.collections.ArrayList
@@ -30,7 +31,7 @@ class MovieMapper {
         return movieDTO
     }
 
-    fun movieListToDtoList(movies: List<Movie>): List<MovieDto> {
+    fun movieListToDtoList(movies: Page<Movie>): Page<MovieDto> {
         return movies.map(this::movieToBatchDto)
     }
 
@@ -39,10 +40,6 @@ class MovieMapper {
         modelMapper.map(movie, movieDTO)
         movie.poster?.let { movieDTO.poster = Base64.getEncoder().encodeToString(it) }
         val size = movie.ratings.size.toDouble()
-        movieDTO.avgRating = movie.ratings
-                .map { it.value }
-                .sum()
-                .div(if (size == 0.0) 1.0 else size)
         movieDTO.totalRatings = size.toInt()
         movieDTO.director.role = "Director"
         movieDTO.director.photo = null

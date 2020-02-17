@@ -12,6 +12,7 @@ import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mockito.times
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.data.domain.Pageable
 
 @ExtendWith(MockitoExtension::class)
 internal class MovieControllerTest {
@@ -26,8 +27,8 @@ internal class MovieControllerTest {
         whenever(movieMapper.singleMovieToDto(any())).thenReturn(MovieDto())
         val dName = "director name"
         val name = "name"
-        movieController.getMovies(name, dName)
-        verify(movieService, times(1)).findMovies(name, dName)
+        movieController.getMovies(name, dName, Pageable.unpaged())
+        verify(movieService, times(1)).findMovies(name, dName,Pageable.unpaged())
     }
 
     @Test
