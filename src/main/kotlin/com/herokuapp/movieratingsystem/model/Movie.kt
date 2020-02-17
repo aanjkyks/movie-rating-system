@@ -20,7 +20,7 @@ class Movie(
         @OneToMany(mappedBy = "movie", cascade = [CascadeType.ALL])
         var actors: List<MovieActor> = emptyList()
 
-) : Serializable{
+) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
