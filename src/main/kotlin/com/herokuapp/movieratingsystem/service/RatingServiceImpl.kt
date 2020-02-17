@@ -13,8 +13,9 @@ class RatingServiceImpl(private val ratingRepository: RatingRepository,
         if (rating.value > 10 || rating.value < 0) {
             throw MVRInvalidArgumentException("Rating can only be in range 0 - 10")
         }
-        (rating.movie.ratings as MutableList).add(rating)
-        rating.movie.avgRating = rating.movie.ratings.map { it.value }.sum().div(rating.movie.ratings.size.toDouble())
+        val ratings = mutableListOf(rating)
+        ratings.addAll(rating.movie.ratings)
+        rating.movie.avgRating = ratings.map { it.value }.sum().div(ratings.size.toDouble())
         movieService.saveMovie(rating.movie)
         return ratingRepository.save(rating)
     }
