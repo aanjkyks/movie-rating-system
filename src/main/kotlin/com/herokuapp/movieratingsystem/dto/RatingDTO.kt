@@ -1,7 +1,6 @@
 package com.herokuapp.movieratingsystem.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.springframework.data.jpa.domain.AbstractPersistable_.id
 
 class RatingDTO(
         @JsonProperty("movie")
@@ -21,8 +20,7 @@ class RatingDTO(
     }
 
     override fun hashCode(): Int {
-        var result = id?.hashCode() ?: 0
-        result = 31 * result + movieId.hashCode()
+        var result = movieId.hashCode()
         result = 31 * result + value
         return result
     }

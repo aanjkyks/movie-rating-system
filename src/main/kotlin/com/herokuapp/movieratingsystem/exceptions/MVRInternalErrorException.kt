@@ -1,6 +1,3 @@
 package com.herokuapp.movieratingsystem.exceptions
 
-class MVRInternalErrorException : RuntimeException {
-    constructor(message: String?) : super(message)
-    constructor(message: String?, cause: Throwable?) : super(message, cause)
-}
+class MVRInternalErrorException(message: String?) : RuntimeException(message)

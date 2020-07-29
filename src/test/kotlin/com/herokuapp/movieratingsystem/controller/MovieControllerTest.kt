@@ -6,7 +6,11 @@ import com.herokuapp.movieratingsystem.mapper.MovieMapper
 import com.herokuapp.movieratingsystem.service.MovieService
 import com.herokuapp.movieratingsystem.service.PersonService
 import com.herokuapp.movieratingsystem.utils.MovieTestingUtils
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
@@ -27,7 +31,7 @@ internal class MovieControllerTest {
         whenever(movieMapper.singleMovieToDto(any())).thenReturn(MovieDto())
         val dName = "director name"
         val name = "name"
-        movieController.getMovies(name, dName, Pageable.unpaged())
+        movieController.getMovies(name, dName)
         verify(movieService, times(1)).findMovies(name, dName,Pageable.unpaged())
     }
 

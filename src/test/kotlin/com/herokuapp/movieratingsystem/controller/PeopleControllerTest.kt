@@ -5,7 +5,12 @@ import com.herokuapp.movieratingsystem.exceptions.MVRInvalidArgumentException
 import com.herokuapp.movieratingsystem.mapper.PersonMapper
 import com.herokuapp.movieratingsystem.model.Person
 import com.herokuapp.movieratingsystem.service.PersonService
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.data.domain.PageImpl

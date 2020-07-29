@@ -6,10 +6,14 @@ import com.herokuapp.movieratingsystem.exceptions.MVRInvalidArgumentException
 import com.herokuapp.movieratingsystem.mapper.MovieMapper
 import com.herokuapp.movieratingsystem.service.MovieService
 import com.herokuapp.movieratingsystem.service.PersonService
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
-import org.springframework.data.web.PageableDefault
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/movies")
@@ -18,9 +22,8 @@ class MovieController(private val movieMapper: MovieMapper,
                       private val personService: PersonService) {
     @GetMapping
     fun getMovies(@RequestParam(required = false) name: String?,
-                  @RequestParam(required = false) dName: String?,
-                  @PageableDefault pageable: Pageable): Page<MovieDto> {
-        return movieMapper.movieListToDtoList(movieService.findMovies(name, dName, pageable))
+                  @RequestParam(required = false) dName: String?): List<MovieDto> {
+        return movieMapper.movieListToDtoList(movieService.findMovies(name, dName))
     }
 
     @GetMapping("/{id}")

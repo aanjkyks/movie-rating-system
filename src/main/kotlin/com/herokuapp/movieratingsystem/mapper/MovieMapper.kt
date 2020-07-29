@@ -31,8 +31,8 @@ class MovieMapper {
         return movieDTO
     }
 
-    fun movieListToDtoList(movies: Page<Movie>): Page<MovieDto> {
-        return movies.map(this::movieToBatchDto)
+    fun movieListToDtoList(movies: Page<Movie>): List<MovieDto> {
+        return movies.map(this::movieToBatchDto).toList()
     }
 
     fun movieToBatchDto(movie: Movie): MovieDto {
