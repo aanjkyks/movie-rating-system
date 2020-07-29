@@ -5,9 +5,6 @@ import com.herokuapp.movieratingsystem.dto.PersonDTO
 import com.herokuapp.movieratingsystem.exceptions.MVRInvalidArgumentException
 import com.herokuapp.movieratingsystem.mapper.PersonMapper
 import com.herokuapp.movieratingsystem.service.PersonService
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
-import org.springframework.data.web.PageableDefault
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -36,9 +33,8 @@ class PeopleController(private val peopleService: PersonService,
     }
 
     @GetMapping
-    fun findPeople(@RequestParam(required = false) name: String?,
-                   @PageableDefault pageable: Pageable): Page<PersonDTO> {
-        return personMapper.peopleListToDtos(peopleService.findPeopleByName(name, pageable))
+    fun findPeople(@RequestParam(required = false) name: String?): List<PersonDTO> {
+        return personMapper.peopleListToDtos(peopleService.findPeopleByName(name))
     }
 
     @GetMapping("/{id}")

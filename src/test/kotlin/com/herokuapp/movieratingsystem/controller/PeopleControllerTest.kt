@@ -57,7 +57,7 @@ internal class PeopleControllerTest {
     @Test
     fun findPeople() {
         whenever(peopleService.findPeopleByName(any(), any())).thenReturn(PageImpl(listOf(Person())))
-        peopleController.findPeople("name", Pageable.unpaged())
+        peopleController.findPeople("name")
         verify(peopleService, times(1)).findPeopleByName(any(), any())
     }
 

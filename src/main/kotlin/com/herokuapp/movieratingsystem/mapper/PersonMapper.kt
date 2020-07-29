@@ -19,8 +19,8 @@ class PersonMapper {
         return personDTO
     }
 
-    fun peopleListToDtos(people: Page<Person>): Page<PersonDTO> {
-        return people.map { personToDto(it) }
+    fun peopleListToDtos(people: Page<Person>): List<PersonDTO> {
+        return people.map(this::personToDto).toList()
     }
 
     fun dtoToPerson(personDto: PersonDTO): Person {
