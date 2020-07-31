@@ -23,6 +23,9 @@ class MovieServiceImpl(private val movieRepository: MovieRepository,
         movie.id?.let {
             movie.ratings = ratingRepository.findByMovie(movie)
         }
+        if (movie.poster == null) {
+            movie.poster = movie.id?.let { movieRepository.findById(it).orElse(Movie()).poster }
+        }
         return movieRepository.save(movie)
     }
 
