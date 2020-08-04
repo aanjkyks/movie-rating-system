@@ -13,12 +13,15 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import javax.transaction.Transactional
 
 @Service
 class MovieServiceImpl(private val movieRepository: MovieRepository,
                        private val ratingRepository: RatingRepository,
                        private val personRepository: PersonRepository,
                        private val movieActorRepository: MovieActorRepository) : MovieService {
+
+    @Transactional
     override fun saveMovie(movie: Movie): Movie {
         movie.id?.let {
             movie.ratings = ratingRepository.findByMovie(movie)
@@ -26,6 +29,7 @@ class MovieServiceImpl(private val movieRepository: MovieRepository,
         if (movie.poster == null) {
             movie.poster = movie.id?.let { movieRepository.findById(it).orElse(Movie()).poster }
         }
+        movieActorRepository.deleteByMovie(movie)
         return movieRepository.save(movie)
     }
 
