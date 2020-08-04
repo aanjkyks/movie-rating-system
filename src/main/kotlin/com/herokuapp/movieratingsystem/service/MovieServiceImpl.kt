@@ -27,13 +27,13 @@ class MovieServiceImpl(private val movieRepository: MovieRepository,
             val ratings = ratingRepository.findByMovie(movie)
             movie.ratings = ratings
             movie.avgRating = ratings.map { it.value }
-                    .fold(0) { acc, rating -> acc + rating }
+                    .sum()
                     .div(ratings.size.toDouble())
+            movieActorRepository.deleteByMovie(movie)
         }
         if (movie.poster == null) {
             movie.poster = movie.id?.let { movieRepository.findById(it).orElse(Movie()).poster }
         }
-        movieActorRepository.deleteByMovie(movie)
         return movieRepository.save(movie)
     }
 

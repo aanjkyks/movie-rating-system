@@ -30,6 +30,7 @@ internal class MovieMapperTest {
         movie.ratings = listOf(Rating(movie = movie, value = 10), Rating(movie = movie, value = 5))
         movie.avgRating = 7.5
         val expected = MovieDto(
+                poster = "",
                 name = movie.name,
                 avgRating = 7.5,
                 totalRatings = 2,

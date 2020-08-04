@@ -18,6 +18,7 @@ class Movie(
         @OneToMany(mappedBy = "movie", cascade = [CascadeType.ALL])
         var ratings: List<Rating> = emptyList(),
         var avgRating: Double = ratings.map { it.value }.sum().div(ratings.size.toDouble()),
+        @Column(columnDefinition = "TEXT")
         var description: String? = null,
         var name: String = "",
         @Column(columnDefinition = "BLOB")

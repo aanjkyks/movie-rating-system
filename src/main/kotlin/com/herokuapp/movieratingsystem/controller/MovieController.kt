@@ -23,7 +23,11 @@ class MovieController(private val movieMapper: MovieMapper,
     @GetMapping
     fun getMovies(@RequestParam(required = false) name: String?,
                   @RequestParam(required = false) dName: String?): List<MovieDto> {
-        return movieMapper.movieListToDtoList(movieService.findMovies(name, dName))
+
+        val blankCheckedName = if (name.isNullOrBlank()) null else name
+        val blackCheckedDirectorName = if (dName.isNullOrBlank()) null else dName
+
+        return movieMapper.movieListToDtoList(movieService.findMovies(blankCheckedName, blackCheckedDirectorName))
     }
 
     @GetMapping("/{id}")

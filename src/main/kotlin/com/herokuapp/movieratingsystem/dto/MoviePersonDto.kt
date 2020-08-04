@@ -3,7 +3,8 @@ package com.herokuapp.movieratingsystem.dto
 class MoviePersonDto(
         var movie: Long? = null,
         var movieName: String = "",
-        var role: String = ""
+        var role: String = "",
+        var poster: String? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

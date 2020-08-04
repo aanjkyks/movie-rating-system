@@ -30,6 +30,7 @@ class ActorInfoMapper {
         moviePersonDto.movie = movieActor.movie.id
         moviePersonDto.movieName = movieActor.movie.name
         moviePersonDto.role = movieActor.role
+        moviePersonDto.poster = Base64.getEncoder().encodeToString(movieActor.movie.poster)
         return moviePersonDto
     }
 
@@ -38,6 +39,7 @@ class ActorInfoMapper {
         moviePersonDto.movie = movie.id
         moviePersonDto.movieName = movie.name
         moviePersonDto.role = "Director"
+        moviePersonDto.poster = Base64.getEncoder().encodeToString(movie.poster)
         return moviePersonDto
     }
 }

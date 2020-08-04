@@ -39,8 +39,8 @@ class MovieMapper {
         val movieDTO = MovieDto()
         modelMapper.map(movie, movieDTO)
         movie.poster?.let { movieDTO.poster = Base64.getEncoder().encodeToString(it) }
-        val size = movie.ratings.size.toDouble()
-        movieDTO.totalRatings = size.toInt()
+        movieDTO.totalRatings = movie.ratings.size
+        movieDTO.avgRating = movie.ratings.map { it.value }.sum().div(movie.ratings.size.toDouble())
         movieDTO.director.role = "Director"
         movieDTO.director.photo = null
         movieDTO.actors = emptyList()

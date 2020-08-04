@@ -29,6 +29,8 @@ public class MovieTestingUtils {
         movieActor.setActor(actor);
 
         movie.setActors(List.of(movieActor));
+
+        movie.setPoster(new byte[0]);
         return movie;
     }
 
