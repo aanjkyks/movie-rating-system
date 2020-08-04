@@ -24,7 +24,11 @@ class MovieServiceImpl(private val movieRepository: MovieRepository,
     @Transactional
     override fun saveMovie(movie: Movie): Movie {
         movie.id?.let {
-            movie.ratings = ratingRepository.findByMovie(movie)
+            val ratings = ratingRepository.findByMovie(movie)
+            movie.ratings = ratings
+            movie.avgRating = ratings.map { it.value }
+                    .fold(0) { acc, rating -> acc + rating }
+                    .div(ratings.size.toDouble())
         }
         if (movie.poster == null) {
             movie.poster = movie.id?.let { movieRepository.findById(it).orElse(Movie()).poster }
